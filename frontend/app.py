@@ -100,10 +100,8 @@ def process_audio_to_chat(audio_file_path):
     """Process audio file and send to chat"""
     try:
         # Send audio file for transcription
-        with open(audio_file_path, 'rb') as audio_file:
-            files = {"file": audio_file}
-            response = requests.post(AUDIO_TO_TEXT_URL, files=files)
-            transcribed_text = response.json().get("text", "")
+        response = requests.post(AUDIO_TO_TEXT_URL, audio_file_path)
+        transcribed_text = response.json().get("text", "")
 
         if transcribed_text:
             # Send transcribed text to chat

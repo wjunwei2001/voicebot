@@ -31,16 +31,16 @@ async def chat_with_openai(request: ChatRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/audio-to-text/")
-async def audio_to_text(file: UploadFile):
+async def audio_to_text(filepath):
     try:
         # Save uploaded file temporarily
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_file:
-            temp_file.write(await file.read())
-            temp_path = temp_file.name
+        # with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_file:
+        #     temp_file.write(await file.read())
+        #     temp_path = temp_file.name
 
         # Convert audio to text
-        transcribed_text = transcribe_audio(temp_path)
-        os.remove(temp_path)  # Clean up the temporary file
+        transcribed_text = transcribe_audio(filepath)
+        os.remove(filepath)  # Clean up the temporary file
         return {"text": transcribed_text}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
