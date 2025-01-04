@@ -1,0 +1,6 @@
+streamlit
+streamlit_chat
+sounddevice
+wavio
+numpy
+queue

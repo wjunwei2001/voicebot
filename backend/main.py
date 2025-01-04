@@ -21,11 +21,11 @@ class ChatRequest(BaseModel):
 @app.post("/chat/")
 async def chat_with_openai(request: ChatRequest):
     try:
-        response = openai.ChatCompletion.create(
+        response = openai.chat.completions.create(
             model="gpt-4o-mini",
             messages=[{"role": "user", "content": request.text}]
         )
-        chatbot_reply = response["choices"][0]["message"]["content"]
+        chatbot_reply = response.choices[0].message.content
         return {"response": chatbot_reply}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
